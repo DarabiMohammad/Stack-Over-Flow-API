@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetBookmarkedProjects @Inject constructor(
     private val mProjectsRepository: ProjectsRepository,
     mPostExecutionThread: PostExecutionThread
-) : ObservableUseCase<List<Project>,Nothing>(mPostExecutionThread){
+) : ObservableUseCase<List<Project>, Nothing>(mPostExecutionThread) {
     public override fun buildUseCaseObservable(mParams: Nothing?): Observable<List<Project>> {
         return mProjectsRepository.getBookmarkedProjects()
     }

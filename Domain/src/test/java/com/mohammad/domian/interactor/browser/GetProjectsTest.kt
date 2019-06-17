@@ -15,31 +15,33 @@ import org.mockito.MockitoAnnotations
 class GetProjectsTest {
 
     private lateinit var mGetProjects: GetProjects
-    @Mock lateinit var mProjectsRepository: ProjectsRepository
-    @Mock lateinit var mPostExecutionThread: PostExecutionThread
+    @Mock
+    lateinit var mProjectsRepository: ProjectsRepository
+    @Mock
+    lateinit var mPostExecutionThread: PostExecutionThread
 
     @Before
-    fun setup(){
+    fun setup() {
         MockitoAnnotations.initMocks(this)
-        mGetProjects = GetProjects(mProjectsRepository,mPostExecutionThread)
+        mGetProjects = GetProjects(mProjectsRepository, mPostExecutionThread)
     }
 
     @Test
-    fun getProjectsCompletes(){
+    fun getProjectsCompletes() {
         stubGetProjects(Observable.just(ProjectDataFactory.makeProjectList(2)))
         val mTestObserver = mGetProjects.buildUseCaseObservable().test()
         mTestObserver.assertComplete()
     }
 
     @Test
-    fun getProjectsReturnsData(){
+    fun getProjectsReturnsData() {
         val mProjects = ProjectDataFactory.makeProjectList(2)
         stubGetProjects(Observable.just(mProjects))
         val mTestObserver = mGetProjects.buildUseCaseObservable().test()
         mTestObserver.assertValue(mProjects)
     }
 
-    private fun stubGetProjects(mObservable: Observable<List<Project>>){
+    private fun stubGetProjects(mObservable: Observable<List<Project>>) {
         whenever(mProjectsRepository.getProjects())
             .thenReturn(mObservable)
     }

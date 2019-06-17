@@ -20,9 +20,9 @@ object ProjectDataFactory {
         )
     }
 
-    fun makeProjectList(mCount: Int):List<Project>{
+    fun makeProjectList(mCount: Int): List<Project> {
         val mProjects = mutableListOf<Project>()
-        repeat(mCount){
+        repeat(mCount) {
             mProjects.add(makeProject())
         }
         return mProjects
